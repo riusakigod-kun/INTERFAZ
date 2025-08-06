@@ -3,7 +3,12 @@ const path = require('path');
 
 module.exports = {
   entry: './index.web.js',
-  mode: 'development',
+  mode: process.env.NODE_ENV === 'production' ? 'production' : 'development',
+  output: {
+    path: path.resolve(__dirname, 'dist'),
+    filename: 'bundle.js',
+    publicPath: '/',
+  },
   module: {
     rules: [
       {
