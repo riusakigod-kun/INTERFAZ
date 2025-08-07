@@ -1,4 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WebpackPwaManifest = require('webpack-pwa-manifest');
+const { GenerateSW } = require('workbox-webpack-plugin');
 const path = require('path');
 
 module.exports = {
@@ -8,6 +10,7 @@ module.exports = {
     path: path.resolve(__dirname, 'dist'),
     filename: 'bundle.js',
     publicPath: '/',
+    clean: true,
   },
   module: {
     rules: [
@@ -29,13 +32,12 @@ module.exports = {
         },
       },
       {
+        test: /\.css$/,
+        use: ['style-loader', 'css-loader'],
+      },
+      {
         test: /\.(png|jpe?g|gif|svg)$/,
-        use: {
-          loader: 'file-loader',
-          options: {
-            name: '[path][name].[ext]',
-          },
-        },
+        type: 'asset/resource',
       },
     ],
   },
@@ -49,7 +51,6 @@ module.exports = {
       'react-native$': 'react-native-web',
     },
     extensions: ['.web.js', '.js', '.jsx', '.json'],
-    // Configuración específica para resolver los módulos de React Navigation
     fullySpecified: false,
     fallback: {
       "crypto": false,
@@ -61,8 +62,9 @@ module.exports = {
     static: './public',
     port: 8088,
     historyApiFallback: true,
+    host: '0.0.0.0',
+    allowedHosts: 'all',
   },
-  // Configuración adicional para manejar módulos ES
   experiments: {
     topLevelAwait: true,
   },
