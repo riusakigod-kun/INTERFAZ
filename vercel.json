@@ -14,5 +14,10 @@
       "src": "/(.*)",
       "dest": "/index.html"
     }
-  ]
+  ],
+  "functions": {
+    "index.html": {
+      "includeFiles": "dist/**"
+    }
+  }
 }
