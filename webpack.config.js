@@ -1,9 +1,9 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const WebpackPwaManifest = require('webpack-pwa-manifest');
-const { GenerateSW } = require('workbox-webpack-plugin');
 const path = require('path');
 
-const isProduction = process.env.NODE_ENV === 'production';
+// Detectar modo producción de múltiples fuentes
+const isProduction = process.env.NODE_ENV === 'production' || 
+                    process.argv.includes('--mode=production');
 
 module.exports = {
   entry: './index.web.js',
